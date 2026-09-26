@@ -1,14 +1,20 @@
 #include <iostream>
 #include <curses.h>
+#include "core/app.h"
 
-int main()
+App app;
+
+// todo: think of what to use arguments for!
+int main(int argc, char* argv[])
 {
-    std::cout << "lol\n";
+    std::cout << "Starting!\n";
 
-    while (true)
+    app.Init();
+
+    while (app.running)
     {
-        // meh
+        
     }
 
-    return 0;
+    app.Exit(0);
 }

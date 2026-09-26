@@ -18,7 +18,11 @@ else()
     set(MUSTER_CURSES Curses::Curses)
 endif()
 
-add_executable(muster src/main.cpp)
+add_executable(muster 
+    src/main.cpp
+    src/core/app.h
+    src/core/app.cpp
+)
 
 target_compile_features(muster PRIVATE cxx_std_17)
 target_link_libraries(muster PRIVATE ${MUSTER_CURSES})
