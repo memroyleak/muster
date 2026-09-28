@@ -9,3 +9,6 @@ vcpkg_installed
 *.exe
 *.dll
 *.so
+
+# allow libvlc binaries
+!libvlc*.dll

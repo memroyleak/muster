@@ -11,13 +11,12 @@ void App::Init()
     noecho();
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
+    curs_set(0);
 
     // clear terminal before running update
     clear();
     maxLines = LINES - 1;
     maxColumns = COLS - 1;
-
-    mvprintw(maxLines / 2, maxColumns / 2, "pdcurse-YOU");
 }
 
 void App::Update()
@@ -28,6 +27,8 @@ void App::Update()
         if (ch == 3)
             App::Exit(0);
     }
+
+    refresh();
 
     // todo: update UI
 }
