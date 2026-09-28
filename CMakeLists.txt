@@ -46,4 +46,14 @@ target_include_directories(muster PRIVATE vendor/libvlcpp)
 target_compile_features(muster PRIVATE cxx_std_17)
 target_link_libraries(muster PRIVATE ${MUSTER_CURSES} libvlc)
 
-file(COPY ${VLC_SDK_DIR} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(
+    TARGET muster
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${VLC_SDK_DIR}/libvlc.dll"
+        "${VLC_SDK_DIR}/libvlccore.dll"
+        "$<TARGET_FILE_DIR:muster>"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${VLC_SDK_DIR}/plugins"
+        "$<TARGET_FILE_DIR:muster>/plugins"
+)
