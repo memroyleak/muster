@@ -1,42 +1,32 @@
-#include <cstdlib>
-#include <curses.h>
+#include <ftxui/screen/screen.hpp>
+#include <ftxui/dom/elements.hpp>
 #include "app.h"
 
 void App::Init()
 {
+    using namespace ftxui;
+    document = hbox({
+        text("left")   | border,
+        text("middle") | border | flex,
+        text("right")  | border,
+    });
+
     running = true;
-
-    initscr();
-    raw();
-    noecho();
-    keypad(stdscr, TRUE);
-    nodelay(stdscr, TRUE);
-    curs_set(0);
-
-    // clear terminal before running update
-    clear();
-    maxLines = LINES - 1;
-    maxColumns = COLS - 1;
 }
 
 void App::Update()
 {
-    int ch = 0;
-    while ((ch = getch()) != ERR)
-    {
-        if (ch == 3)
-            App::Exit(0);
-    }
-
-    refresh();
-
-    // todo: update UI
+    auto screen = ftxui::Screen::Create(
+        ftxui::Dimension::Full(),
+        ftxui::Dimension::Fit(document)
+    );
+    ftxui::Render(screen, document);
+    screen.Print();
 }
 
 int App::Exit(int exitCode)
 {
+    running = false;
     // todo: stop playback, cleanup routine...
-
-    endwin();
-    exit(exitCode);
+    return 0;
 }

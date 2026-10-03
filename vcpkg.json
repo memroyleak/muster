@@ -1,12 +1,6 @@
 {
   "dependencies": [
-    {
-      "name": "ncurses",
-      "platform": "!windows"
-    },
-    {
-      "name": "pdcurses",
-      "platform": "windows"
-    }
+    "ftxui",
+    "nlohmann-json"
   ]
 }
